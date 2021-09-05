@@ -25,6 +25,7 @@ Tested on
 * CentOS 8
 * OracleLinux 8
 * ArchLinux
+* FreeBSD 13.0
 
 ## configuration
 
