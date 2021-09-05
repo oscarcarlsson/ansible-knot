@@ -1,96 +1,49 @@
 # {{ ansible_managed }}
+# https://stackoverflow.com/questions/38367716/jinja2-template-for-ansible-controlled-from-vars
 
 # https://www.knot-dns.cz/docs/3.0/singlehtml/
 
 # https://www.knot-dns.cz/docs/3.0/singlehtml/#server-section
-{% if knot_config %}
-server:
-  rundir: "{{  knot_config.server.rundir }}"
-  user: {{ knot_user }}:{{ knot_group }}
-{% if knot_config.server.listen %}
-{% for listen in knot_config.server.listen %}
-  listen: {{ listen }}
-{% endfor %}
+{% if knot_config.server %}
+server:{{ knot_config.server| to_nice_yaml }}
 {% endif %}
 
 # https://www.knot-dns.cz/docs/3.0/singlehtml/#logging-section
 {% if knot_config.log %}
-log:
-{% for k, v in knot_config.log.items() %}
-  - target: {{ k }}
-{% for x,y in v.items() %}
-    {{ x }}: {{ y }}
-{% endfor %}
-{% endfor %}
+log:{{ knot_config.log | to_nice_yaml }}
 {% endif %}
 
 # https://www.knot-dns.cz/docs/3.0/singlehtml/#database-section
 {% if knot_config.database %}
-database:
-{% for x,y in knot_config.database.items() %}
-  {{ x }}: {{ y }}
-{% endfor %}
-{% else %}
-# database:
-#     storage: STR
-#     journal-db: STR
-#     journal-db-mode: robust | asynchronous
-#     journal-db-max-size: SIZE
-#     kasp-db: STR
-#     kasp-db-max-size: SIZE
-#     timer-db: STR
-#     timer-db-max-size: SIZE
-#     catalog-db: str
-#     catalog-db-max-size: SIZE
+database:{{ knot_config.database | to_nice_yaml }}
 {% endif %}
 
 # https://www.knot-dns.cz/docs/3.0/singlehtml/#remote-section
 {% if knot_config.remote %}
-remote:
-{% for k, v in knot_config.remote.items() %}
-  - id: {{ k }}
-{% for x,y in v.items() %}
-    {{ x }}: {{ y }}
-{% endfor %}
-{% endfor %}
+remote:{{ knot_config.remote| to_nice_yaml }}
 {% endif %}
 
 # https://www.knot-dns.cz/docs/3.0/singlehtml/#acl-section
 {% if knot_config.acl %}
-acl:
-{% for k, v in knot_config.acl.items() %}
-  - id: {{ k }}
-{% for x,y in v.items() %}
-    {{ x }}: {{ y }}
-{% endfor %}
-{% endfor %}
+acl:{{ knot_config.acl| to_nice_yaml }}
 {% endif %}
 
 # https://www.knot-dns.cz/docs/3.0/singlehtml/#template-section
 {% if knot_config.template %}
-template:
-{% for k, v in knot_config.template.items() %}
-  - id: {{ k }}
-{% for x,y in v.items() %}
-    {{ x }}: {{ y }}
-{% endfor %}
-{% endfor %}
+template:{{ knot_config.template| to_nice_yaml }}
 {% endif %}
 
 # https://www.knot-dns.cz/docs/3.0/singlehtml/#zone-section
 {% if knot_config.zone %}
-zone:
-{% for k, v in knot_config.zone.items() %}
-  - domain: {{ k }}
-{% for x,y in v.items() %}
-    {{ x }}: {{ y }}
-{% endfor %}
-{% endfor %}
+zone:{{ knot_config.zone | to_nice_yaml }}
 {% endif %}
 
 # https://www.knot-dns.cz/docs/3.0/singlehtml/#control-section
 # https://www.knot-dns.cz/docs/3.0/singlehtml/#statistics-section
 # https://www.knot-dns.cz/docs/3.0/singlehtml/#key-section
+{% if knot_config.key %}
+key:{{ key| to_nice_yaml }}
+{% endif %}
 # https://www.knot-dns.cz/docs/3.0/singlehtml/#submission-section
 # https://www.knot-dns.cz/docs/3.0/singlehtml/#policy-section
 
