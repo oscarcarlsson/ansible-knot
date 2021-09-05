@@ -53,5 +53,6 @@
 - name: update package cache
   package:
     update_cache: true
-
+  when:
+    - ansible_os_family | lower != "freebsd"
 ...
