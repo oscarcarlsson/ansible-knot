@@ -39,12 +39,26 @@ zone:{{ knot_config.zone | to_nice_yaml }}
 {% endif %}
 
 # https://www.knot-dns.cz/docs/3.0/singlehtml/#control-section
+{% if knot_config.control %}
+control:{{ knot_config.control| to_nice_yaml }}
+{% endif %}
+
 # https://www.knot-dns.cz/docs/3.0/singlehtml/#statistics-section
+{% if knot_config.statistics %}
+statistics:{{ knot_config.statistics| to_nice_yaml }}
+{% endif %}
+
 # https://www.knot-dns.cz/docs/3.0/singlehtml/#key-section
 {% if knot_config.key %}
-key:{{ key| to_nice_yaml }}
+key:{{ knot_config.key| to_nice_yaml }}
 {% endif %}
-# https://www.knot-dns.cz/docs/3.0/singlehtml/#submission-section
-# https://www.knot-dns.cz/docs/3.0/singlehtml/#policy-section
 
+# https://www.knot-dns.cz/docs/3.0/singlehtml/#submission-section
+{% if knot_config.submission %}
+submission:{{ knot_config.submission| to_nice_yaml }}
+{% endif %}
+
+# https://www.knot-dns.cz/docs/3.0/singlehtml/#policy-section
+{% if knot_config.policy %}
+policy:{{ knot_config.policy| to_nice_yaml }}
 {% endif %}
